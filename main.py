@@ -4,12 +4,16 @@
 Point d'entrée pour le programme du jeu de la vie
 """
 
+from monde_simple import MondeSimple
 import pygame
-import math
+from math import trunc
 
 # Constantes
 LARGEUR_ECRAN = 900
 HAUTEUR_ECRAN = 600
+TAILLE_CASE = 100
+LARGEUR_GRILLE = trunc(LARGEUR_ECRAN / TAILLE_CASE)
+HAUTEUR_GRILLE = trunc(HAUTEUR_ECRAN / TAILLE_CASE)
 
 
 def main(args):
@@ -25,6 +29,9 @@ def main(args):
     clock = pygame.time.Clock()
     # Boucle d'évènements
     danslejeu = True
+    # Initialisation du monde
+    monde = MondeSimple(LARGEUR_GRILLE, HAUTEUR_GRILLE, TAILLE_CASE)
+    monde.print()
 
     # Boucle principale du jeu
     while danslejeu:
@@ -34,8 +41,7 @@ def main(args):
                 print("On quitte")
                 danslejeu = False
 
-        #TODO
-        print("TODO")
+        # monde.dessiner(ecran)
 
         # 60 images / seconde
         clock.tick(60)
