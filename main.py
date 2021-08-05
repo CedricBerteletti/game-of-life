@@ -11,9 +11,9 @@ from math import trunc
 # Constantes
 LARGEUR_ECRAN = 900
 HAUTEUR_ECRAN = 600
-TAILLE_CASE = 100
-LARGEUR_GRILLE = trunc(LARGEUR_ECRAN / TAILLE_CASE)
-HAUTEUR_GRILLE = trunc(HAUTEUR_ECRAN / TAILLE_CASE)
+TAILLE_CASE = 10
+NB_COLONNES = trunc(LARGEUR_ECRAN / TAILLE_CASE)
+NB_LIGNES = trunc(HAUTEUR_ECRAN / TAILLE_CASE)
 
 
 def main(args):
@@ -21,7 +21,7 @@ def main(args):
 
     # Initialisation de la fenêtre d'affichage
     pygame.init()
-    fenetre = (LARGEUR_ECRAN, HAUTEUR_ECRAN)
+    fenetre = (LARGEUR_ECRAN+1, HAUTEUR_ECRAN+1)
     ecran = pygame.display.set_mode(fenetre)
     pygame.display.set_caption("Jeu de la vie")
 
@@ -31,7 +31,7 @@ def main(args):
     # Boucle d'évènements
     danslejeu = True
     # Initialisation du monde
-    monde = MondeSimple(LARGEUR_GRILLE, HAUTEUR_GRILLE, TAILLE_CASE)
+    monde = MondeSimple(NB_COLONNES, NB_LIGNES, TAILLE_CASE)
     #monde.print()
 
     # Boucle principale du jeu
