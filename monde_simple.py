@@ -1,4 +1,5 @@
 
+import pygame
 
 class MondeSimple:
     "Classe pour afficher et faire évoluer une version simple du jeu de la vie"
@@ -19,6 +20,11 @@ class MondeSimple:
             for x in range (0, self.largeur_grille):
                 print(self.cases[x][y], end=" ")
             print("")
+
+    def dessiner(self, surface):
+        couleur=(255, 255, 255)
+        pygame.draw.line(surface, couleur, (10, 10), (100, 300))
+
 
 
 

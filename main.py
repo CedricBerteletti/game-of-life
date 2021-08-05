@@ -21,7 +21,8 @@ def main(args):
 
     # Initialisation de la fenêtre d'affichage
     pygame.init()
-    ecran = pygame.display.set_mode((LARGEUR_ECRAN, HAUTEUR_ECRAN))
+    fenetre = (LARGEUR_ECRAN, HAUTEUR_ECRAN)
+    ecran = pygame.display.set_mode(fenetre)
     pygame.display.set_caption("Jeu de la vie")
 
     # Autres initialiations
@@ -31,7 +32,7 @@ def main(args):
     danslejeu = True
     # Initialisation du monde
     monde = MondeSimple(LARGEUR_GRILLE, HAUTEUR_GRILLE, TAILLE_CASE)
-    monde.print()
+    #monde.print()
 
     # Boucle principale du jeu
     while danslejeu:
@@ -41,10 +42,21 @@ def main(args):
                 print("On quitte")
                 danslejeu = False
 
-        # monde.dessiner(ecran)
+        # Initialisation de la nouvelle image
+        surface_de_dessin = pygame.Surface(fenetre)
+
+        # Rendu du nouvel état du monde
+        monde.dessiner(surface_de_dessin)
+
+        # Bascule de la nouvelle image sur l'écran
+        ecran.blit(surface_de_dessin,(0,0))
+        pygame.display.flip()
 
         # 60 images / seconde
         clock.tick(60)
+
+
+    pygame.quit()
 
 
 print("Programme principal")
