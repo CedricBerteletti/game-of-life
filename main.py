@@ -11,7 +11,7 @@ from math import trunc
 # Constantes
 LARGEUR_ECRAN = 900
 HAUTEUR_ECRAN = 600
-TAILLE_CASE = 10
+TAILLE_CASE = 20
 NB_COLONNES = trunc(LARGEUR_ECRAN / TAILLE_CASE)
 NB_LIGNES = trunc(HAUTEUR_ECRAN / TAILLE_CASE)
 
@@ -32,7 +32,13 @@ def main(args):
     danslejeu = True
     # Initialisation du monde
     monde = MondeSimple(NB_COLONNES, NB_LIGNES, TAILLE_CASE)
-    #monde.print()
+
+    # TODO : commenter le test
+    monde.print()
+    monde.cases[2][1] = True
+    monde.cases[5][7] = True
+    print("")
+    monde.print()
 
     # Boucle principale du jeu
     while danslejeu:

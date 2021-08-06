@@ -50,15 +50,15 @@ class MondeSimple:
         #pygame.draw.line(surface, couleur, (800, 000), ( 800, 600))
         #pygame.draw.line(surface, couleur, (900, 000), ( 900, 600))
 
-        #tracer des verticales
+        # tracé des verticales
         for x in range (0, self.nb_colonnes+1):
             pygame.draw.line(surface, couleur, (x*self.taille_case, 0),
                 ( x*self.taille_case, self.nb_lignes*self.taille_case))
         
-
-
-
-
-
-
-
+        # tracé des cellules
+        for y in range (0, self.nb_lignes):
+            for x in range (0, self.nb_colonnes):
+                if self.cases[x][y] == True:
+                    x1 = x*self.taille_case
+                    y1 = y*self.taille_case
+                    pygame.draw.rect(surface, couleur, (x1, y1, self.taille_case, self.taille_case))
