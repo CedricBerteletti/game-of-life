@@ -8,12 +8,17 @@ class MondeSimple:
         self.nb_colonnes = nb_colonnes
         self.nb_lignes = nb_lignes
         self.taille_case = taille_case
-        self.cases = []
+        self.cases = self.init_cases()
+    
+    def init_cases(self):
+        #print("init_cases")
+        cases_vides = []
         for x in range (0, self.nb_colonnes):
             nouvelle_colonne = []
             for y in range (0, self.nb_lignes):
                 nouvelle_colonne.append(False)
-            self.cases.append(nouvelle_colonne)    
+            cases_vides.append(nouvelle_colonne)
+        return cases_vides
 
     def print(self):
         for y in range (0, self.nb_lignes):
@@ -62,3 +67,16 @@ class MondeSimple:
                     x1 = x*self.taille_case
                     y1 = y*self.taille_case
                     pygame.draw.rect(surface, couleur, (x1, y1, self.taille_case, self.taille_case))
+
+    def evolution(self):
+        #print("evolution")
+        nouvelles_cases = self.init_cases()
+        
+        for y in range (0, self.nb_lignes):
+            for x in range (0, self.nb_colonnes):
+                #nouvelles_cases[x][y] = self.cases[x][y]
+                nouvelles_cases[x][y] = not self.cases[x][y]
+        # TODO
+
+        self.cases = nouvelles_cases
+

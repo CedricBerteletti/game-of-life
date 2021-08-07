@@ -24,6 +24,7 @@ def main(args):
     fenetre = (LARGEUR_ECRAN+1, HAUTEUR_ECRAN+1)
     ecran = pygame.display.set_mode(fenetre)
     pygame.display.set_caption("Jeu de la vie")
+    ips = 2 # images par seconde
 
     # Autres initialiations
     # Timer
@@ -37,6 +38,8 @@ def main(args):
     monde.print()
     monde.cases[2][1] = True
     monde.cases[5][7] = True
+    monde.cases[5][6] = True
+    monde.cases[5][8] = True
     print("")
     monde.print()
 
@@ -47,19 +50,25 @@ def main(args):
             if event.type == pygame.QUIT:
                 print("On quitte")
                 danslejeu = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_KP_MINUS and ips>1:
+                    ips -= 1
+                if event.key == pygame.K_KP_PLUS:
+                    ips += 1
 
         # Initialisation de la nouvelle image
         surface_de_dessin = pygame.Surface(fenetre)
 
         # Rendu du nouvel état du monde
+        monde.evolution()
         monde.dessiner(surface_de_dessin)
 
         # Bascule de la nouvelle image sur l'écran
         ecran.blit(surface_de_dessin,(0,0))
         pygame.display.flip()
 
-        # 60 images / seconde
-        clock.tick(60)
+        # images / seconde
+        clock.tick(ips)
 
 
     pygame.quit()
