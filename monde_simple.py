@@ -53,11 +53,80 @@ class MondeSimple:
         
         for y in range (0, self.nb_lignes):
             for x in range (0, self.nb_colonnes):
-                #nouvelles_cases[x][y] = self.cases[x][y]
-                nouvelles_cases[x][y] = not self.cases[x][y]
-        # TODO
+                # nouvelles_cases[x][y] = not self.cases[x][y]
+                nb_vois = self.nb_voisins(x, y)
+                if nb_vois == 3:
+                    nouvelles_cases[x][y] = True
+                elif nb_vois == 2:
+                    nouvelles_cases[x][y] = self.cases[x][y]
+                else:
+                    nouvelles_cases[x][y] = False
+
 
         self.cases = nouvelles_cases
+    
+    def nb_voisins(self, colonne, ligne):
+        nb = 0
+
+        c = self.cas_limite_col(colonne-1)
+        l = self.cas_limite_ligne(ligne-1)
+        if self.cases[c][l]:
+            nb = nb+1
+    
+        c = self.cas_limite_col(colonne-1)
+        l = self.cas_limite_ligne(ligne)
+        if self.cases[c][l]:
+            nb = nb +1
+
+        c = self.cas_limite_col(colonne-1)
+        l = self.cas_limite_ligne(ligne+1)
+        if self.cases[c][l]:
+            nb = nb +1
+
+        c = self.cas_limite_col(colonne)
+        l = self.cas_limite_ligne(ligne-1)
+        if self.cases[c][l]:
+            nb = nb +1
+
+        c = self.cas_limite_col(colonne)
+        l = self.cas_limite_ligne(ligne+1)
+        if self.cases[c][l]:
+            nb = nb +1
+
+        c = self.cas_limite_col(colonne+1)
+        l = self.cas_limite_ligne(ligne-1)
+        if self.cases[c][l]:
+            nb = nb +1
+
+        c = self.cas_limite_col(colonne+1)
+        l = self.cas_limite_ligne(ligne)
+        if self.cases[c][l]:
+            nb = nb +1
+
+        c = self.cas_limite_col(colonne+1)
+        l = self.cas_limite_ligne(ligne+1)
+        if self.cases[c][l]:
+            nb = nb +1
+        
+        return nb
+
+    def cas_limite_col(self, col):
+        "Gère les cas des bords pour les colonnes"
+        if col < 0:
+            return col + self.nb_colonnes
+        elif col >= self.nb_colonnes:
+            return col - self.nb_colonnes
+        else:
+            return col
+    
+    def cas_limite_ligne(self, ligne):
+        "Gère les cas des bords pour les lignes"
+        if ligne < 0:
+            return ligne + self.nb_lignes
+        elif ligne >= self.nb_lignes:
+            return ligne - self.nb_lignes
+        else:
+            return ligne
 
     def enregistrer(self, nomfichier):
         with open(nomfichier, "w") as file:
