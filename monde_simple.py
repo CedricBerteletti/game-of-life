@@ -180,7 +180,7 @@ class MondeSimple:
                         if line[x] == "1":
                             self.cases[x][y] = True
             except Exception as error:
-                raise SyntaxError("Le fichier de données est corrompu.")
+                raise SyntaxError("Le fichier de données est corrompu.") from error
             
             # Fermeture du fichier
             file.close()

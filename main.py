@@ -24,7 +24,7 @@ def ecrire_texte(surface, font, texte, x, y, couleur):
 def main(args):
     print("Entrée dans la fonction main")
 
-    # Initialisation de la fenêtre d'affichage
+    # Initialisation de pygame et de la fenêtre d'affichage
     pygame.init()
     fenetre = (LARGEUR_ECRAN+1, HAUTEUR_ECRAN+1)
     ecran = pygame.display.set_mode(fenetre)
@@ -32,10 +32,10 @@ def main(args):
     ips = 2 # images par seconde
     pygame.font.init()
     font = pygame.font.SysFont('Comic Sans MS', 14)
-
-    # Autres initialiations
     # Timer
     clock = pygame.time.Clock()
+
+    # Autres initialiations
     # Boucle d'évènements
     danslejeu = True
     # Initialisation du monde
