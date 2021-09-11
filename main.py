@@ -33,6 +33,8 @@ def main(args):
     danslejeu = True
     # Initialisation du monde
     monde = MondeSimple(NB_COLONNES, NB_LIGNES, TAILLE_CASE)
+    # Monde en pause ou en évolution 
+    enpause = False
 
     # TODO : commenter le test
     monde.print()
@@ -55,12 +57,19 @@ def main(args):
                     ips -= 1
                 if event.key == pygame.K_KP_PLUS:
                     ips += 1
+                if event.key == pygame.K_SPACE:
+                    if enpause == True:
+                        enpause = False
+                    elif enpause == False:
+                        enpause = True
+
 
         # Initialisation de la nouvelle image
         surface_de_dessin = pygame.Surface(fenetre)
 
         # Rendu du nouvel état du monde
-        monde.evolution()
+        if enpause == False:
+            monde.evolution()
         monde.dessiner(surface_de_dessin)
 
         # Bascule de la nouvelle image sur l'écran
