@@ -5,6 +5,7 @@ Point d'entrée pour le programme du jeu de la vie
 """
 
 from monde_simple import MondeSimple
+from monde_usine import MondeUsine
 import pygame
 from math import trunc
 
@@ -39,13 +40,10 @@ def main(args):
     enpause = False
 
     # TODO : commenter le test
-    monde.print()
     monde.cases[2][1] = True
     monde.cases[5][7] = True
     monde.cases[5][6] = True
     monde.cases[5][8] = True
-    print("")
-    monde.print()
 
     # Boucle principale du jeu
     while danslejeu:
@@ -62,7 +60,7 @@ def main(args):
                 if event.key == pygame.K_e:
                     monde.enregistrer(nom_fichier)
                 if event.key == pygame.K_c:
-                    monde.charger(nom_fichier)
+                    monde = MondeUsine.charger(nom_fichier)
                 if event.key == pygame.K_SPACE:
                     enpause = not enpause
 

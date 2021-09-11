@@ -76,3 +76,10 @@ class MondeSimple:
                         file.write("0")
                 file.write("\n")
             file.close()
+
+    def charger(self, nomfichier):
+        with open(nomfichier, "r") as file:
+            
+            
+            file.close()
+
