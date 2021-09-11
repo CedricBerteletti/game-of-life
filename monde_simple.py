@@ -79,7 +79,30 @@ class MondeSimple:
 
     def charger(self, nomfichier):
         with open(nomfichier, "r") as file:
+            try:
+                # Récupération des informations générales sur le monde
+                raw_data = False
+                while not raw_data and (line := file.readline().rstrip()):
+                    if "monde.colonnes.nb" in line:
+                        self.nb_colonnes = int(line.replace("monde.colonnes.nb=", "").strip())
+                    elif "monde.lignes.nb" in line:
+                        self.nb_lignes = int(line.replace("monde.lignes.nb=", "").strip())
+                    elif "monde.case.taille" in line:
+                        self.taille_case = int(line.replace("monde.case.taille=", "").strip())
+                    raw_data = "[raw_data]" in line
+                
+                # Initialisation du monde vide
+                self.cases = self.init_cases()
+
+                # Récupération des données des cases
+                for y in range (0, self.nb_lignes):
+                    line = file.readline().rstrip()
+                    for x in range (0, self.nb_colonnes):
+                        if line[x] == "1":
+                            self.cases[x][y] = True
+            except Exception as error:
+                raise SyntaxError("Le fichier de données est corrompu.")
             
-            
+            # Fermeture du fichier
             file.close()
 
