@@ -33,6 +33,8 @@ def main(args):
     danslejeu = True
     # Initialisation du monde
     monde = MondeSimple(NB_COLONNES, NB_LIGNES, TAILLE_CASE)
+    # Fichier de sauvegarde du monde
+    nom_fichier = "monde_par_default.vie"
 
     # TODO : commenter le test
     monde.print()
@@ -55,6 +57,10 @@ def main(args):
                     ips -= 1
                 if event.key == pygame.K_KP_PLUS:
                     ips += 1
+                if event.key == pygame.K_e:
+                    monde.enregistrer(nom_fichier)
+                if event.key == pygame.K_c:
+                    monde.charger(nom_fichier)
 
         # Initialisation de la nouvelle image
         surface_de_dessin = pygame.Surface(fenetre)
@@ -69,7 +75,6 @@ def main(args):
 
         # images / seconde
         clock.tick(ips)
-
 
     pygame.quit()
 

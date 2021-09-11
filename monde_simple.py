@@ -30,30 +30,9 @@ class MondeSimple:
         couleur=(255, 255, 255)
 
         # Tracé des horizontales
-            # pygame.draw.line(surface, couleur, (0, 0),
-            #     (self.nb_colonnes*self.taille_case, 0))
-            # pygame.draw.line(surface, couleur, (0, self.taille_case),
-            #     (self.nb_colonnes*self.taille_case, self.taille_case))
-            # pygame.draw.line(surface, couleur, (0, 2*self.taille_case),
-            #     (self.nb_colonnes*self.taille_case, 2*self.taille_case))
         for y in range (0, self.nb_lignes+1):
             pygame.draw.line(surface, couleur, (0, y*self.taille_case),
                 (self.nb_colonnes*self.taille_case, y*self.taille_case))
-
-        #pygame.draw.line(surface, couleur, (00, 100), ( 900, 100))
-        #pygame.draw.line(surface, couleur, (00, 200), ( 900, 200))
-        #pygame.draw.line(surface, couleur, (00, 300), ( 900, 300))
-        #pygame.draw.line(surface, couleur, (00, 400), ( 900, 400))
-        #pygame.draw.line(surface, couleur, (00, 500), ( 900, 500))
-        #pygame.draw.line(surface, couleur, (100, 000), ( 100, 600))
-        #pygame.draw.line(surface, couleur, (200, 000), ( 200, 600))
-        #pygame.draw.line(surface, couleur, (300, 000), ( 300, 600))
-        #pygame.draw.line(surface, couleur, (400, 000), ( 400, 600))
-        #pygame.draw.line(surface, couleur, (500, 000), ( 500, 600))
-        #pygame.draw.line(surface, couleur, (600, 000), ( 600, 600))
-        #pygame.draw.line(surface, couleur, (700, 000), ( 700, 600))
-        #pygame.draw.line(surface, couleur, (800, 000), ( 800, 600))
-        #pygame.draw.line(surface, couleur, (900, 000), ( 900, 600))
 
         # tracé des verticales
         for x in range (0, self.nb_colonnes+1):
@@ -80,3 +59,20 @@ class MondeSimple:
 
         self.cases = nouvelles_cases
 
+    def enregistrer(self, nomfichier):
+        with open(nomfichier, "w") as file:
+            file.write("[configuration]\n")
+            file.write("monde.class=MondeSimple\n")
+            file.write("monde.version=1.0\n")
+            file.write("monde.colonnes.nb=" + str(self.nb_colonnes) + "\n")
+            file.write("monde.lignes.nb=" + str(self.nb_lignes) + "\n")
+            file.write("monde.case.taille=" + str(self.taille_case) + "\n")            
+            file.write("[raw_data]\n")
+            for y in range (0, self.nb_lignes):
+                for x in range (0, self.nb_colonnes):
+                    if self.cases[x][y]:
+                        file.write("1")
+                    else:
+                        file.write("0")
+                file.write("\n")
+            file.close()
