@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
 from monde_simple import MondeSimple
 
 class MondeUsine:
     "Classe implémentant le pattern Factory pour la création et le chargement des mondes"
 
+    @staticmethod    
     def charger(nomfichier):
         monde_class = ""
         monde_version = ""
@@ -28,5 +30,3 @@ class MondeUsine:
             raise NotImplementedError("La version du fichier de données n'est pas prise en charge par ce programme.")
         
         return monde
-        
-    charger = staticmethod(charger)

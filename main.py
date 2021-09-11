@@ -16,6 +16,10 @@ TAILLE_CASE = 20
 NB_COLONNES = trunc(LARGEUR_ECRAN / TAILLE_CASE)
 NB_LIGNES = trunc(HAUTEUR_ECRAN / TAILLE_CASE)
 
+def ecrire_texte(surface, font, texte, x, y, couleur):
+    texte_surface = font.render(texte, False, couleur)
+    surface.blit(texte_surface, (x, y))
+    return texte_surface.get_size()
 
 def main(args):
     print("Entrée dans la fonction main")
@@ -26,6 +30,8 @@ def main(args):
     ecran = pygame.display.set_mode(fenetre)
     pygame.display.set_caption("Jeu de la vie")
     ips = 2 # images par seconde
+    pygame.font.init()
+    font = pygame.font.SysFont('Comic Sans MS', 14)
 
     # Autres initialiations
     # Timer
@@ -37,13 +43,13 @@ def main(args):
     # Fichier de sauvegarde du monde
     nom_fichier = "monde_par_default.vie"
     # Monde en pause ou en évolution 
-    enpause = False
-
-    # TODO : commenter le test
-    monde.cases[2][1] = True
-    monde.cases[5][7] = True
-    monde.cases[5][6] = True
-    monde.cases[5][8] = True
+    en_pause = True
+    # Afficher l'aide
+    aide = True
+    # Afficher les infos
+    infos = False
+    # Pas d'évolution
+    pas = 0
 
     # Boucle principale du jeu
     while danslejeu:
@@ -55,25 +61,61 @@ def main(args):
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_KP_MINUS and ips>1:
                     ips -= 1
-                if event.key == pygame.K_KP_PLUS:
+                elif event.key == pygame.K_KP_PLUS:
                     ips += 1
-                if event.key == pygame.K_e:
+                elif event.key == pygame.K_e:
                     monde.enregistrer(nom_fichier)
-                if event.key == pygame.K_c:
+                elif event.key == pygame.K_c:
                     monde = MondeUsine.charger(nom_fichier)
-                if event.key == pygame.K_SPACE:
-                    enpause = not enpause
+                    pas = 0
+                elif event.key == pygame.K_SPACE:
+                    en_pause = not en_pause
+                elif event.key == pygame.K_h:
+                    aide = not aide
+                elif event.key == pygame.K_i:
+                    infos = not infos
+                elif event.key == pygame.K_a:
+                    monde.init_cases(True)
+                    pas = 0
 
         # Initialisation de la nouvelle image
         surface_de_dessin = pygame.Surface(fenetre)
 
         # Rendu du nouvel état du monde
-        if not enpause:
+        if not en_pause:
             monde.evolution()
+            pas += 1
         monde.dessiner(surface_de_dessin)
 
         # Bascule de la nouvelle image sur l'écran
-        ecran.blit(surface_de_dessin,(0,0))
+        ecran.blit(surface_de_dessin, (0,0))
+        if infos or aide:
+            y_text = 0
+            if infos:
+                rouge = (255, 0, 0)
+                largeur, hauteur = ecrire_texte(ecran, font, "Vitesse : " + str(ips), 0, y_text, rouge)
+                y_text += hauteur
+                largeur, hauteur = ecrire_texte(ecran, font, "Pas d'évolution : " + str(pas), 0, y_text, rouge)
+                y_text += hauteur
+            if aide:
+                vert = (0, 255, 0)
+                largeur, hauteur = ecrire_texte(ecran, font, "Touches :", 0, y_text, vert)
+                y_text += hauteur
+                largeur, hauteur = ecrire_texte(ecran, font, "i : affiche les informations sur la simulation", 0, y_text, vert)
+                y_text += hauteur
+                largeur, hauteur = ecrire_texte(ecran, font, "+ : augmente la vitesse de la simulation", 0, y_text, vert)
+                y_text += hauteur
+                largeur, hauteur = ecrire_texte(ecran, font, "- : diminue la vitesse de la simulation", 0, y_text, vert)
+                y_text += hauteur
+                largeur, hauteur = ecrire_texte(ecran, font, "Barre d'espace : pause/reprise", 0, y_text, vert)
+                y_text += hauteur
+                largeur, hauteur = ecrire_texte(ecran, font, "a : réinitialiser le monde avec des valeurs aléatoires", 0, y_text, vert)
+                y_text += hauteur
+                largeur, hauteur = ecrire_texte(ecran, font, "e : enregistrer le monde dans un fichier .vie", 0, y_text, vert)
+                y_text += hauteur
+                largeur, hauteur = ecrire_texte(ecran, font, "c : charger le monde depuis un fichier .vie", 0, y_text, vert)
+                y_text += hauteur
+
         pygame.display.flip()
 
         # images / seconde
