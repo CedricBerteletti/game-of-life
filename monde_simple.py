@@ -17,7 +17,7 @@ class MondeSimple:
         self.cases = self._init_cases(aleatoire)
     
     def _init_cases(self, aleatoire):
-        "Méthode retournant un tableau à 2D avec les cases initialisées"
+        "Méthode retournant un tableau en 2D avec les cases initialisées"
         cases_vides = []
         for x in range (0, self.nb_colonnes):
             nouvelle_colonne = []
