@@ -4,7 +4,7 @@ import pygame
 class MondeSimple:
     "Classe pour afficher et faire évoluer une version simple du jeu de la vie"
 
-    def __init__(self, nb_colonnes, nb_lignes, taille_case):
+    def __init__(self, nb_colonnes=10, nb_lignes=10, taille_case=10):
         self.nb_colonnes = nb_colonnes
         self.nb_lignes = nb_lignes
         self.taille_case = taille_case

@@ -35,6 +35,8 @@ def main(args):
     monde = MondeSimple(NB_COLONNES, NB_LIGNES, TAILLE_CASE)
     # Fichier de sauvegarde du monde
     nom_fichier = "monde_par_default.vie"
+    # Monde en pause ou en évolution 
+    enpause = False
 
     # TODO : commenter le test
     monde.print()
@@ -61,12 +63,15 @@ def main(args):
                     monde.enregistrer(nom_fichier)
                 if event.key == pygame.K_c:
                     monde.charger(nom_fichier)
+                if event.key == pygame.K_SPACE:
+                    enpause = not enpause
 
         # Initialisation de la nouvelle image
         surface_de_dessin = pygame.Surface(fenetre)
 
         # Rendu du nouvel état du monde
-        monde.evolution()
+        if not enpause:
+            monde.evolution()
         monde.dessiner(surface_de_dessin)
 
         # Bascule de la nouvelle image sur l'écran
