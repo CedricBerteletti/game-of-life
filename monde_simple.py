@@ -40,7 +40,7 @@ class MondeSimple:
             print("")
 
     def dessiner(self, surface):
-        couleur=(255, 255, 255)
+        couleur=(150, 150, 150)
 
         # Tracé des horizontales
         for y in range (0, self.nb_lignes+1):
@@ -52,6 +52,7 @@ class MondeSimple:
             pygame.draw.line(surface, couleur, (x*self.taille_case, 0),
                 ( x*self.taille_case, self.nb_lignes*self.taille_case))
         
+        couleur=(255, 255, 255)
         # tracé des cellules
         for y in range (0, self.nb_lignes):
             for x in range (0, self.nb_colonnes):
