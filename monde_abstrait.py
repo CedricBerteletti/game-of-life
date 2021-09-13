@@ -58,7 +58,7 @@ class MondeAbstrait:
         return self.cases[c][l]
 
     def dessiner(self, surface):
-        blanc = (255, 255, 255)
+        blanc = (128, 128, 128)
         self._dessiner_grille(surface, blanc)
         self._dessiner_cellules(surface)    
     

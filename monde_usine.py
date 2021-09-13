@@ -27,7 +27,7 @@ class MondeUsine:
         if monde_class == "MondeSimple" and monde_version =="1.0":
             monde = MondeSimple()
             monde.charger(nomfichier)
-        if monde_class == "MondeSimpleBorne" and monde_version =="1.0":
+        elif monde_class == "MondeSimpleBorne" and monde_version =="1.0":
             monde = MondeSimpleBorne()
             monde.charger(nomfichier)
         else:
