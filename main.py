@@ -4,10 +4,11 @@
 Point d'entrée pour le programme du jeu de la vie
 """
 
-from monde_simple import MondeSimple
-from monde_usine import MondeUsine
 import pygame
 from math import trunc
+from monde_simple import MondeSimple
+from monde_simple_borne import MondeSimpleBorne
+from monde_usine import MondeUsine
 
 # Constantes
 LARGEUR_ECRAN = 900

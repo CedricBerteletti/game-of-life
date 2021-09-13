@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from monde_simple import MondeSimple
+from monde_simple_borne import MondeSimpleBorne
 
 class MondeUsine:
     "Classe implémentant le pattern Factory pour la création et le chargement des mondes"
@@ -25,6 +26,9 @@ class MondeUsine:
         
         if monde_class == "MondeSimple" and monde_version =="1.0":
             monde = MondeSimple()
+            monde.charger(nomfichier)
+        if monde_class == "MondeSimpleBorne" and monde_version =="1.0":
+            monde = MondeSimpleBorne()
             monde.charger(nomfichier)
         else:
             raise NotImplementedError("La version du fichier de données n'est pas prise en charge par ce programme.")
