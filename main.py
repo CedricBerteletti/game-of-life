@@ -13,14 +13,13 @@ from monde_usine import MondeUsine
 # Constantes
 LARGEUR_ECRAN = 900
 HAUTEUR_ECRAN = 600
-TAILLE_CASE = 20
+TAILLE_CASE = 10
 NB_COLONNES = trunc(LARGEUR_ECRAN / TAILLE_CASE)
 NB_LIGNES = trunc(HAUTEUR_ECRAN / TAILLE_CASE)
 
 def ecrire_texte(surface, font, texte, x, y, couleur):
-    texte_surface = font.render(texte, False, couleur)
-    surface.blit(texte_surface, (x, y))
-    return texte_surface.get_size()
+    texte_surface = font.render(texte, False, couleur, (100, 100, 100))
+    return texte_surface
 
 def main(args):
     print("Entrée dans la fonction main")
@@ -91,31 +90,43 @@ def main(args):
         # Bascule de la nouvelle image sur l'écran
         ecran.blit(surface_de_dessin, (0,0))
         if infos or aide:
+            x_text = 0
             y_text = 0
+            text_largeur, text_hauteur = font.size("txt")
             if infos:
-                rouge = (255, 0, 0)
-                largeur, hauteur = ecrire_texte(ecran, font, "Vitesse : " + str(ips), 0, y_text, rouge)
-                y_text += hauteur
-                largeur, hauteur = ecrire_texte(ecran, font, "Pas d'évolution : " + str(pas), 0, y_text, rouge)
-                y_text += hauteur
+                rouge = (0, 0, 200)
+                texte_surface = ecrire_texte(ecran, font, "Vitesse : " + str(ips), x_text, y_text, rouge)   
+                ecran.blit(texte_surface, (x_text, y_text))
+                y_text += text_hauteur
+                texte_surface = ecrire_texte(ecran, font, "Pas d'évolution : " + str(pas), x_text, y_text, rouge)
+                ecran.blit(texte_surface, (x_text, y_text))
+                y_text += text_hauteur
             if aide:
-                vert = (0, 255, 0)
-                largeur, hauteur = ecrire_texte(ecran, font, "Touches :", 0, y_text, vert)
-                y_text += hauteur
-                largeur, hauteur = ecrire_texte(ecran, font, "i : affiche les informations sur la simulation", 0, y_text, vert)
-                y_text += hauteur
-                largeur, hauteur = ecrire_texte(ecran, font, "+ : augmente la vitesse de la simulation", 0, y_text, vert)
-                y_text += hauteur
-                largeur, hauteur = ecrire_texte(ecran, font, "- : diminue la vitesse de la simulation", 0, y_text, vert)
-                y_text += hauteur
-                largeur, hauteur = ecrire_texte(ecran, font, "Barre d'espace : pause/reprise", 0, y_text, vert)
-                y_text += hauteur
-                largeur, hauteur = ecrire_texte(ecran, font, "a : réinitialiser le monde avec des valeurs aléatoires", 0, y_text, vert)
-                y_text += hauteur
-                largeur, hauteur = ecrire_texte(ecran, font, "e : enregistrer le monde dans un fichier .vie", 0, y_text, vert)
-                y_text += hauteur
-                largeur, hauteur = ecrire_texte(ecran, font, "c : charger le monde depuis un fichier .vie", 0, y_text, vert)
-                y_text += hauteur
+                vert = (0, 200, 0)
+                texte_surface = ecrire_texte(ecran, font, "Touches :", x_text, y_text, vert)
+                ecran.blit(texte_surface, (x_text, y_text))
+                y_text += text_hauteur
+                texte_surface = ecrire_texte(ecran, font, "i : affiche les informations sur la simulation", x_text, y_text, vert)
+                ecran.blit(texte_surface, (x_text, y_text))
+                y_text += text_hauteur
+                texte_surface = ecrire_texte(ecran, font, "+ : augmente la vitesse de la simulation", x_text, y_text, vert)
+                ecran.blit(texte_surface, (x_text, y_text))
+                y_text += text_hauteur
+                texte_surface = ecrire_texte(ecran, font, "- : diminue la vitesse de la simulation", x_text, y_text, vert)
+                ecran.blit(texte_surface, (x_text, y_text))
+                y_text += text_hauteur
+                texte_surface = ecrire_texte(ecran, font, "Barre d'espace : pause/reprise", x_text, y_text, vert)
+                ecran.blit(texte_surface, (x_text, y_text))
+                y_text += text_hauteur
+                texte_surface = ecrire_texte(ecran, font, "a : réinitialiser le monde avec des valeurs aléatoires", x_text, y_text, vert)
+                ecran.blit(texte_surface, (x_text, y_text))
+                y_text += text_hauteur
+                texte_surface = ecrire_texte(ecran, font, "e : enregistrer le monde dans un fichier .vie", x_text, y_text, vert)
+                ecran.blit(texte_surface, (x_text, y_text))
+                y_text += text_hauteur
+                texte_surface = ecrire_texte(ecran, font, "c : charger le monde depuis un fichier .vie", x_text, y_text, vert)
+                ecran.blit(texte_surface, (x_text, y_text))
+                y_text += text_hauteur
 
         pygame.display.flip()
 
