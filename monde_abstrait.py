@@ -137,6 +137,34 @@ class MondeAbstrait:
         
         return nb
     
+    def voisins(self, c, l):
+        voisins = []
+        case = self.case(c-1, l-1)
+        if case is not None:
+            voisins.append(case)
+        case = self.case(c-1, l)
+        if case is not None:
+            voisins.append(case)
+        case = self.case(c-1, l+1)
+        if case is not None:
+            voisins.append(case)
+        case = self.case(c, l-1)
+        if case is not None:
+            voisins.append(case)
+        case = self.case(c, l+1)
+        if case is not None:
+            voisins.append(case)
+        case = self.case(c+1, l-1)
+        if case is not None:
+            voisins.append(case)
+        case = self.case(c+1, l)
+        if case is not None:
+            voisins.append(case)
+        case = self.case(c+1, l+1)
+        if case is not None:
+            voisins.append(case)
+        return voisins
+
     def enregistrer(self, nomfichier):
         raise NotImplementedError()
 

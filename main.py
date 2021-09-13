@@ -8,6 +8,7 @@ import pygame
 from math import trunc
 from monde_simple import MondeSimple
 from monde_simple_borne import MondeSimpleBorne
+from monde_chromatique import MondeChromatique
 from monde_usine import MondeUsine
 
 # Constantes
@@ -39,7 +40,7 @@ def main(args):
     # Boucle d'évènements
     danslejeu = True
     # Initialisation du monde
-    monde = MondeSimple(NB_COLONNES, NB_LIGNES, TAILLE_CASE)
+    monde = MondeChromatique(NB_COLONNES, NB_LIGNES, TAILLE_CASE)
     # Fichier de sauvegarde du monde
     nom_fichier = "monde_par_default.vie"
     # Monde en pause ou en évolution 
