@@ -28,6 +28,7 @@ class MondeSimple(MondeAbstrait):
         return couleur
     
     def _nouvelle_cellule(self, colonne, ligne):
+        "Crée un nouvelle cellule, compatible avec le type du monde choisi, dans le contexte des coordonnées fournies (mais n'insère pas la cellule dans le monde)"
         return True
 
     def enregistrer(self, nomfichier):
