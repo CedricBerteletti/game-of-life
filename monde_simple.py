@@ -7,10 +7,11 @@ class MondeSimple(MondeAbstrait):
     "Classe pour afficher et faire évoluer une version simple du jeu de la vie"
     "Monde toroïdal (haut du monde lié au bas, gauche du mon lié à la droite)"
 
-    def __init__(self, nb_colonnes=10, nb_lignes=10, taille_case=10):
+    def __init__(self, nb_colonnes=10, nb_lignes=10, taille_case=10, dessiner_grille=True):
         self.nb_colonnes = nb_colonnes
         self.nb_lignes = nb_lignes
         self.taille_case = taille_case
+        self.dessiner_grille = dessiner_grille
         self.init_cases(False)
 
     def _nouvelle_valeur_case(self, aleatoire):
@@ -20,7 +21,8 @@ class MondeSimple(MondeAbstrait):
             valeur = True 
         return valeur
     
-    def _couleur_cellule(self, colonne, ligne):        
+    def _couleur_cellule(self, colonne, ligne):
+        "Couleur de remplissage de la cellule aux coordonnées indiquées"
         if self.cases[colonne][ligne] is not None and self.cases[colonne][ligne]:
             couleur = (255, 255, 255)
         else:

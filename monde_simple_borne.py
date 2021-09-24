@@ -7,10 +7,11 @@ class MondeSimpleBorne(MondeSimple):
     "Classe pour afficher et faire évoluer une version simple du jeu de la vie"
     "Monde borné (pas de liaison haut/bas, gauche/droite)"
 
-    def __init__(self, nb_colonnes=10, nb_lignes=10, taille_case=10):
+    def __init__(self, nb_colonnes=10, nb_lignes=10, taille_case=10, dessiner_grille=True):
         self.nb_colonnes = nb_colonnes
         self.nb_lignes = nb_lignes
         self.taille_case = taille_case
+        self.dessiner_grille = dessiner_grille
         self.init_cases(False)
     
     def case(self, colonne, ligne):

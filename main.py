@@ -14,7 +14,8 @@ from monde_usine import MondeUsine
 # Constantes
 LARGEUR_ECRAN = 900
 HAUTEUR_ECRAN = 600
-TAILLE_CASE = 10
+TAILLE_CASE = 4
+AVEC_GRILLE = False
 NB_COLONNES = trunc(LARGEUR_ECRAN / TAILLE_CASE)
 NB_LIGNES = trunc(HAUTEUR_ECRAN / TAILLE_CASE)
 
@@ -40,7 +41,9 @@ def main(args):
     # Boucle d'évènements
     danslejeu = True
     # Initialisation du monde
-    monde = MondeChromatique(NB_COLONNES, NB_LIGNES, TAILLE_CASE)
+    #monde = MondeSimple(NB_COLONNES, NB_LIGNES, TAILLE_CASE, AVEC_GRILLE)
+    #monde = MondeSimpleBorne(NB_COLONNES, NB_LIGNES, TAILLE_CASE, AVEC_GRILLE)
+    monde = MondeChromatique(NB_COLONNES, NB_LIGNES, TAILLE_CASE, AVEC_GRILLE)
     # Fichier de sauvegarde du monde
     nom_fichier = "monde_par_default.vie"
     # Monde en pause ou en évolution 
@@ -75,6 +78,8 @@ def main(args):
                     aide = not aide
                 elif event.key == pygame.K_i:
                     infos = not infos
+                elif event.key == pygame.K_g:
+                    monde.dessiner_grille = not monde.dessiner_grille
                 elif event.key == pygame.K_a:
                     monde.init_cases(True)
                     pas = 0
@@ -91,8 +96,8 @@ def main(args):
         # Bascule de la nouvelle image sur l'écran
         ecran.blit(surface_de_dessin, (0,0))
         if infos or aide:
-            x_text = 0
-            y_text = 0
+            x_text = 10
+            y_text = 10
             text_largeur, text_hauteur = font.size("txt")
             if infos:
                 rouge = (0, 0, 200)
@@ -114,6 +119,9 @@ def main(args):
                 ecran.blit(texte_surface, (x_text, y_text))
                 y_text += text_hauteur
                 texte_surface = ecrire_texte(ecran, font, "- : diminue la vitesse de la simulation", x_text, y_text, vert)
+                ecran.blit(texte_surface, (x_text, y_text))
+                y_text += text_hauteur
+                texte_surface = ecrire_texte(ecran, font, "g : affiche/masque la grille", x_text, y_text, vert)
                 ecran.blit(texte_surface, (x_text, y_text))
                 y_text += text_hauteur
                 texte_surface = ecrire_texte(ecran, font, "Barre d'espace : pause/reprise", x_text, y_text, vert)

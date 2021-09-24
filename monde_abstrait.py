@@ -10,6 +10,7 @@ class MondeAbstrait:
     nb_colonnes = 10
     nb_lignes = 10
     taille_case = 10
+    dessiner_grille = True
     
     def init_cases(self, aleatoire):
         "Méthode pour initialiser le monde"
@@ -36,7 +37,7 @@ class MondeAbstrait:
             print("")
         print("")
 
-    def print_voisins(self):
+    def print_nb_voisins(self):
         for y in range (0, self.nb_lignes):
             for x in range (0, self.nb_colonnes):
                 print(self.nb_voisins(x, y), end=" ")
@@ -59,7 +60,8 @@ class MondeAbstrait:
 
     def dessiner(self, surface):
         blanc = (128, 128, 128)
-        self._dessiner_grille(surface, blanc)
+        if self.dessiner_grille:
+            self._dessiner_grille(surface, blanc)
         self._dessiner_cellules(surface)    
     
     def _dessiner_grille(self, surface, couleur):
@@ -79,9 +81,15 @@ class MondeAbstrait:
             for x in range (0, self.nb_colonnes):                
                 x1 = x*self.taille_case
                 y1 = y*self.taille_case
-                pygame.draw.rect(surface, self._couleur_cellule(x, y), (x1+1, y1+1, self.taille_case-1, self.taille_case-1))
+                if self.dessiner_grille:
+                    epaisseur_grille = 1
+                else:
+                    epaisseur_grille = 0
+                pygame.draw.rect(surface, self._couleur_cellule(x, y), (x1+epaisseur_grille, y1+epaisseur_grille,
+                    self.taille_case-epaisseur_grille, self.taille_case-epaisseur_grille))
     
-    def _couleur_cellule(self, colonne, ligne):        
+    def _couleur_cellule(self, colonne, ligne):
+        "Couleur de remplissage de la cellule aux coordonnées indiquées"
         if self.cases[colonne][ligne] is not None:
             couleur = (255, 255, 255)
         else:
@@ -105,7 +113,7 @@ class MondeAbstrait:
         self.cases = nouvelles_cases
 
     def _nouvelle_cellule(self, colonne, ligne):
-        "Crée un nouvelle cellule, compatible avec le type du monde choisi, dans le contexte des coordonnées fournies (mais n'insère pas la cellule dans le monde)"
+        "Crée un nouvelle cellule, compatible avec le type du monde choisi, dans le contexte des coordonnées fournies (mais ne l'insère pas dans le monde)"
         raise NotImplementedError()
     
     def nb_voisins(self, c, l):
