@@ -15,7 +15,6 @@ from monde_usine import MondeUsine
 LARGEUR_ECRAN = 900
 HAUTEUR_ECRAN = 600
 TAILLE_CASE = 4
-AVEC_GRILLE = False
 NB_COLONNES = trunc(LARGEUR_ECRAN / TAILLE_CASE)
 NB_LIGNES = trunc(HAUTEUR_ECRAN / TAILLE_CASE)
 
@@ -40,10 +39,11 @@ def main(args):
     # Autres initialiations
     # Boucle d'évènements
     danslejeu = True
+    avec_grille = False
     # Initialisation du monde
-    #monde = MondeSimple(NB_COLONNES, NB_LIGNES, TAILLE_CASE, AVEC_GRILLE)
-    #monde = MondeSimpleBorne(NB_COLONNES, NB_LIGNES, TAILLE_CASE, AVEC_GRILLE)
-    monde = MondeChromatique(NB_COLONNES, NB_LIGNES, TAILLE_CASE, AVEC_GRILLE)
+    #monde = MondeSimple(NB_COLONNES, NB_LIGNES, TAILLE_CASE, avec_grille)
+    #monde = MondeSimpleBorne(NB_COLONNES, NB_LIGNES, TAILLE_CASE, avec_grille)
+    monde = MondeChromatique(NB_COLONNES, NB_LIGNES, TAILLE_CASE, avec_grille)
     # Fichier de sauvegarde du monde
     nom_fichier = "monde_par_default.vie"
     # Monde en pause ou en évolution 
@@ -71,6 +71,7 @@ def main(args):
                     monde.enregistrer(nom_fichier)
                 elif event.key == pygame.K_c:
                     monde = MondeUsine.charger(nom_fichier)
+                    monde.dessiner_grille = avec_grille
                     pas = 0
                 elif event.key == pygame.K_SPACE:
                     en_pause = not en_pause
@@ -79,7 +80,8 @@ def main(args):
                 elif event.key == pygame.K_i:
                     infos = not infos
                 elif event.key == pygame.K_g:
-                    monde.dessiner_grille = not monde.dessiner_grille
+                    avec_grille = not avec_grille
+                    monde.dessiner_grille = avec_grille
                 elif event.key == pygame.K_a:
                     monde.init_cases(True)
                     pas = 0

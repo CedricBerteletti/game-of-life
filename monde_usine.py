@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from monde_chromatique import MondeChromatique
 from monde_simple import MondeSimple
 from monde_simple_borne import MondeSimpleBorne
 
@@ -29,6 +30,9 @@ class MondeUsine:
             monde.charger(nomfichier)
         elif monde_class == "MondeSimpleBorne" and monde_version =="1.0":
             monde = MondeSimpleBorne()
+            monde.charger(nomfichier)
+        elif monde_class == "MondeChromatique" and monde_version =="1.0":
+            monde = MondeChromatique()
             monde.charger(nomfichier)
         else:
             raise NotImplementedError("La version du fichier de données n'est pas prise en charge par ce programme.")

@@ -7,6 +7,7 @@ class MondeAbstrait:
     "Monde toroïdal par défaut (haut du monde lié au bas, gauche du mon lié à la droite)"
 
     # Propriétés abstraites des mondes
+    _version = "1.0"
     nb_colonnes = 10
     nb_lignes = 10
     taille_case = 10
@@ -174,7 +175,51 @@ class MondeAbstrait:
         return voisins
 
     def enregistrer(self, nomfichier):
-        raise NotImplementedError()
+        with open(nomfichier, "w") as file:
+            file.write("[configuration]\n")
+            file.write("monde.class=" + self.__class__.__name__ + "\n")
+            file.write("monde.version=" + self._version + "\n")
+            file.write("monde.colonnes.nb=" + str(self.nb_colonnes) + "\n")
+            file.write("monde.lignes.nb=" + str(self.nb_lignes) + "\n")
+            file.write("monde.case.taille=" + str(self.taille_case) + "\n")            
+            file.write("[raw_data]\n")
+            for y in range (0, self.nb_lignes):
+                for x in range (0, self.nb_colonnes):
+                    self._ecrire_case(file, self.cases[x][y])
+                file.write("\n")
+            file.close()
 
     def charger(self, nomfichier):
+        with open(nomfichier, "r") as file:
+            try:
+                # Récupération des informations générales sur le monde
+                raw_data = False
+                while not raw_data and (line := file.readline().rstrip()):
+                    if "monde.colonnes.nb" in line:
+                        self.nb_colonnes = int(line.replace("monde.colonnes.nb=", "").strip())
+                    elif "monde.lignes.nb" in line:
+                        self.nb_lignes = int(line.replace("monde.lignes.nb=", "").strip())
+                    elif "monde.case.taille" in line:
+                        self.taille_case = int(line.replace("monde.case.taille=", "").strip())
+                    raw_data = "[raw_data]" in line
+                
+                # Initialisation du monde vide
+                self.cases = self._nouvelles_cases(False)
+
+                # Récupération des données des cases
+                for y in range (0, self.nb_lignes):
+                    ligne_donnees = file.readline().rstrip()
+                    for x in range (0, self.nb_colonnes):
+                        case, ligne_donnees = self._lire_case_suivante(ligne_donnees)
+                        self.cases[x][y] = case
+            except Exception as error:
+                raise SyntaxError("Le fichier de données est corrompu.") from error
+            
+            # Fermeture du fichier
+            file.close()
+
+    def _ecrire_case(self, fichier, case):
+        raise NotImplementedError()
+
+    def _lire_case_suivante(self, ligne_donnees):
         raise NotImplementedError()
