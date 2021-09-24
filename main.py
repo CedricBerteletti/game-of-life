@@ -101,40 +101,58 @@ def main(args):
             x_text = 10
             y_text = 10
             text_largeur, text_hauteur = font.size("txt")
+            
             if infos:
-                rouge = (0, 0, 200)
-                texte_surface = ecrire_texte(ecran, font, "Vitesse : " + str(ips), x_text, y_text, rouge)   
+                couleur_info = (0, 0, 200)
+
+                texte_surface = ecrire_texte(ecran, font, "Vitesse : " + str(ips), x_text, y_text, couleur_info)   
                 ecran.blit(texte_surface, (x_text, y_text))
                 y_text += text_hauteur
-                texte_surface = ecrire_texte(ecran, font, "Pas d'évolution : " + str(pas), x_text, y_text, rouge)
+
+                texte_surface = ecrire_texte(ecran, font, "Pas d'évolution : " + str(pas), x_text, y_text, couleur_info)
                 ecran.blit(texte_surface, (x_text, y_text))
                 y_text += text_hauteur
+
+                casex, casey = int(pygame.mouse.get_pos()[0]/monde.taille_case), int(pygame.mouse.get_pos()[1]/monde.taille_case)
+                texte_surface = ecrire_texte(ecran, font, "Case (" + str(casex) + ", " + str(casey) + ") : " + str(monde.case(casex, casey)), x_text, y_text, couleur_info)
+                ecran.blit(texte_surface, (x_text, y_text))
+                y_text += text_hauteur
+
             if aide:
                 vert = (0, 200, 0)
+
                 texte_surface = ecrire_texte(ecran, font, "Touches :", x_text, y_text, vert)
                 ecran.blit(texte_surface, (x_text, y_text))
                 y_text += text_hauteur
+
                 texte_surface = ecrire_texte(ecran, font, "i : affiche les informations sur la simulation", x_text, y_text, vert)
                 ecran.blit(texte_surface, (x_text, y_text))
                 y_text += text_hauteur
+
                 texte_surface = ecrire_texte(ecran, font, "+ : augmente la vitesse de la simulation", x_text, y_text, vert)
                 ecran.blit(texte_surface, (x_text, y_text))
                 y_text += text_hauteur
+
                 texte_surface = ecrire_texte(ecran, font, "- : diminue la vitesse de la simulation", x_text, y_text, vert)
                 ecran.blit(texte_surface, (x_text, y_text))
                 y_text += text_hauteur
+
                 texte_surface = ecrire_texte(ecran, font, "g : affiche/masque la grille", x_text, y_text, vert)
                 ecran.blit(texte_surface, (x_text, y_text))
                 y_text += text_hauteur
+
                 texte_surface = ecrire_texte(ecran, font, "Barre d'espace : pause/reprise", x_text, y_text, vert)
                 ecran.blit(texte_surface, (x_text, y_text))
                 y_text += text_hauteur
+
                 texte_surface = ecrire_texte(ecran, font, "a : réinitialiser le monde avec des valeurs aléatoires", x_text, y_text, vert)
                 ecran.blit(texte_surface, (x_text, y_text))
                 y_text += text_hauteur
+
                 texte_surface = ecrire_texte(ecran, font, "e : enregistrer le monde dans un fichier .vie", x_text, y_text, vert)
                 ecran.blit(texte_surface, (x_text, y_text))
                 y_text += text_hauteur
+
                 texte_surface = ecrire_texte(ecran, font, "c : charger le monde depuis un fichier .vie", x_text, y_text, vert)
                 ecran.blit(texte_surface, (x_text, y_text))
                 y_text += text_hauteur
