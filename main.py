@@ -30,7 +30,7 @@ def main(args):
     fenetre = (LARGEUR_ECRAN+1, HAUTEUR_ECRAN+1)
     ecran = pygame.display.set_mode(fenetre)
     pygame.display.set_caption("Jeu de la vie")
-    ips = 2 # images par seconde
+    ips = 10 # images par seconde
     pygame.font.init()
     font = pygame.font.SysFont('Comic Sans MS', 14)
     # Timer

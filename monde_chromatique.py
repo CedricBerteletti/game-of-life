@@ -53,8 +53,23 @@ class MondeChromatique(MondeSimple):
         mutation  = random.uniform(0, 1.0)
         allele = 0
         if mutation <= self._TAUX_MUTATION:
-            allele = random.randint(1, self._NB_NIVEAUX_LUMINOSITE_PAR_ALLELE)*256/self._NB_NIVEAUX_LUMINOSITE_PAR_ALLELE - 1
+            allele = int(random.randint(1, self._NB_NIVEAUX_LUMINOSITE_PAR_ALLELE)*256/self._NB_NIVEAUX_LUMINOSITE_PAR_ALLELE - 1)            
         else:
             allele = random.choice(alleles)
         return allele
+
+    def _ecrire_case(self, fichier, case):
+        if case:
+            fichier.write(chr(case[0])+chr(case[1])+chr(case[2]))
+        else:
+            fichier.write(chr(0)+chr(0)+chr(0))
+
+    def _lire_case_suivante(self, ligne_donnees):
+        rouge = ord(ligne_donnees[0])
+        vert = ord(ligne_donnees[1])
+        bleu = ord(ligne_donnees[2])
+        if rouge != 0 or vert != 0 or bleu != 0:
+            return (rouge, vert, bleu), ligne_donnees[3:]
+        else:
+            return None, ligne_donnees[3:]
     
