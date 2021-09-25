@@ -76,6 +76,11 @@ def main(args):
                 elif event.key == pygame.K_a:
                     monde.init_cases(True)
                     pas = 0
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                x,y = pygame.mouse.get_pos()
+                case_ligne = int(y / TAILLE_CASE)
+                case_colonne = int(x / TAILLE_CASE)
+                monde.cases[case_colonne][case_ligne] = True
 
         # Initialisation de la nouvelle image
         surface_de_dessin = pygame.Surface(fenetre)
